@@ -110,6 +110,63 @@
 		</dependency>
 	</dependencies>
 	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.maven.ide.eclipse.maven2Nature</projectnature>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
+						<projectnature>org.hibernate.eclipse.console.hibernateNature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.maven.ide.eclipse.maven2Builder</buildcommand>
+						<buildcommand>org.jboss.tools.common.verification.verifybuilder</buildcommand>
+						<buildcommand>org.hibernate.eclipse.console.hibernateBuilder</buildcommand>
+					</additionalBuildcommands>
+					<useProjectReferences>true</useProjectReferences>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
