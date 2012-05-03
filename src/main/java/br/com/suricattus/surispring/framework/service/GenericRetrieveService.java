@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -32,7 +33,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Service;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
@@ -43,9 +43,8 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  * @author Lucas Lins
  *
  */
-@Service("genericRetrieveService")
-@Configurable(autowire = Autowire.BY_TYPE)
 @SuppressWarnings("unchecked")
+@Configurable(autowire = Autowire.BY_TYPE)
 public class GenericRetrieveService implements Serializable{
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,14 +54,14 @@ public class GenericRetrieveService implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private Session session;
+	private SessionFactory sessionFactory;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// DEFAULT METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	Session getSession(){
-		return session;
+		return sessionFactory.getCurrentSession();
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

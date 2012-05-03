@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -56,7 +57,7 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	@Autowired
-	private Session session;
+	private SessionFactory sessionFactory;
 	
 	protected Class<T> tipo;
 	
@@ -87,7 +88,7 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	 * @return hibernate session
 	 */
 	protected Session getSession(){
-		return session;
+		return sessionFactory.getCurrentSession();
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

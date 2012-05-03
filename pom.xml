@@ -43,6 +43,14 @@
 	</repositories>
 	
 	<dependencies>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- JSF -->
 		
 		<dependency>
@@ -186,6 +194,7 @@
 		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
 		<jdk.version>1.6</jdk.version>
 		
+		<servlet.version>2.5</servlet.version>
 		<junit.version>4.8.1</junit.version>
 		<jsf.version>2.1.6</jsf.version>
 		<jstl.version>1.2</jstl.version>

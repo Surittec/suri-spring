@@ -23,6 +23,8 @@ package br.com.suricattus.surispring.framework.service;
 import java.io.Serializable;
 import java.util.Collection;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 
 /**
@@ -32,6 +34,7 @@ import br.com.suricattus.surispring.framework.domain.BaseEntity;
  *
  */
 @SuppressWarnings("unchecked")
+@Transactional(rollbackFor = Exception.class)
 public abstract class ServiceSupport extends GenericRetrieveService {
 
 	private static final long serialVersionUID = 1L;

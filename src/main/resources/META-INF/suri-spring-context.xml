@@ -12,6 +12,15 @@
 							http://www.springframework.org/schema/aop 
 							http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- TRANSACTION -->
+	
+	<tx:annotation-driven />
+	
+	<!-- GENERIC RETRIEVE SERVICE -->
+	
+	<bean name="genericRetrieveService" class="br.com.suricattus.surispring.framework.service.GenericRetrieveService" />
+	
+	<!-- CUSTOM SCOPES -->
 	
 	<bean class="br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder" destroy-method="destroy" scope="request"/>
 	
