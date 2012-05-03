@@ -25,24 +25,19 @@ public class ViewScope implements Scope{
 		return instance;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object remove(String name) {
-		Object instance = getViewMap().remove(name);
+		Object instance = getBeansMap().remove(name);
 		if(instance != null) {
-			Map<String,Runnable> callbacks = (Map<String, Runnable>) getViewMap().get(getCallbacksIdentifier());
-			if(callbacks != null) {
-				Runnable callback = callbacks.remove(name);
-				if(callback != null){
-					callback.run();
-				}
+			Runnable callback = getCallbacksMap().remove(name);
+			if(callback != null) {
+				callback.run();
 			}
 		}
 		return instance;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void registerDestructionCallback(String name, Runnable runnable) {
-		((Map<String, Runnable>) getViewMap().get(getCallbacksIdentifier())).put(name, runnable);
+		getCallbacksMap().put(name, runnable);
 	}
 
 	public Object resolveContextualObject(String name) {
@@ -66,14 +61,15 @@ public class ViewScope implements Scope{
 	protected String getCallbacksIdentifier(){
 		return CALLBACKS;
 	}
-	
-	protected Map<String,Object> getViewMap() {
-		return FacesContext.getCurrentInstance().getViewRoot().getViewMap();
-	}
 
 	@SuppressWarnings("unchecked")
 	protected Map<String,Object> getBeansMap() {
-		return (Map<String, Object>) getViewMap().get(getBeansIdentifier());
+		return (Map<String, Object>) FacesContext.getCurrentInstance().getViewRoot().getViewMap().get(getBeansIdentifier());
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected Map<String,Runnable> getCallbacksMap() {
+		return (Map<String, Runnable>) FacesContext.getCurrentInstance().getViewRoot().getViewMap().get(getCallbacksIdentifier());
 	}
 	
 }
