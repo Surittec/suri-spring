@@ -18,20 +18,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package br.com.suricattus.surispring.spring.scope.annotation;
+package br.com.suricattus.surispring.framework.controller.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.context.annotation.Scope;
-
-import br.com.suricattus.surispring.spring.scope.ScopeType;
-
 /**
- * Annotation para controllers com escopo de SessionScope
+ * Annotation de marcacao para ser interceptada pelo AspectJ
  * 
  * @author Lucas Lins
  *
@@ -39,5 +36,5 @@ import br.com.suricattus.surispring.spring.scope.ScopeType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Scope(ScopeType.SESSION)
-public @interface SessionScoped {}
+@Inherited
+public @interface AppendBusinessMessages {}

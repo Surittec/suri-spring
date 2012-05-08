@@ -12,13 +12,19 @@
 							http://www.springframework.org/schema/aop 
 							http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- CONTEXT -->
+	
+	<context:annotation-config />
+	
+	<context:component-scan base-package="br.com.suricattus.surispring" />
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	
 	<!-- TRANSACTION -->
 	
 	<tx:annotation-driven />
 	
-	<!-- GENERIC RETRIEVE SERVICE -->
-	
-	<bean name="genericRetrieveService" class="br.com.suricattus.surispring.framework.service.GenericRetrieveService" />
 	
 	<!-- CUSTOM SCOPES -->
 	

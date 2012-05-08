@@ -31,7 +31,7 @@ import br.com.suricattus.surispring.framework.domain.BaseEntity;
  * Classe suporte aos Services transacionais do projeto. 
  * 
  * @author Lucas Lins
- *
+ * 
  */
 @SuppressWarnings("unchecked")
 @Transactional(rollbackFor = Exception.class)

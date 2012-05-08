@@ -30,9 +30,8 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
@@ -41,10 +40,9 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  * Servico generico que auxilia na busca de entidades persistentes.
  * 
  * @author Lucas Lins
- *
+ * 
  */
-@SuppressWarnings("unchecked")
-@Configurable(autowire = Autowire.BY_TYPE)
+@Service
 public class GenericRetrieveService implements Serializable{
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

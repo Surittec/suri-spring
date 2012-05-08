@@ -33,9 +33,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
@@ -49,7 +47,6 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  * @param <PK>
  */
 @SuppressWarnings("unchecked")
-@Configurable(autowire = Autowire.BY_TYPE)
 public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>{
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

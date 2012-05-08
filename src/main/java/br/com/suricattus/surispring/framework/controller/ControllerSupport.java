@@ -1,11 +1,28 @@
+/*
+ * SURICATTUS
+ * Copyright 2011, SURICATTUS CONSULTORIA LTDA, 
+ * and individual contributors as indicated by the @authors tag
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package br.com.suricattus.surispring.framework.controller;
 
 import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlForm;
@@ -18,7 +35,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ControllerSupport implements Serializable{
+import br.com.suricattus.surispring.framework.controller.annotation.AppendBusinessMessages;
+import br.com.suricattus.surispring.jsf.util.FacesMessagesUtil;
+
+/**
+ * 
+ * @author Lucas Lins
+ *
+ */
+@AppendBusinessMessages
+public abstract class ControllerSupport implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -85,7 +111,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsg(String msg, Object ... params) {
-		addMsg(FacesMessage.SEVERITY_INFO, msg, params);
+		FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_INFO, msg, params);
 	}
 
 	/**
@@ -96,7 +122,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
+    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
 	}
 	
 	/**
@@ -105,7 +131,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgWarn(String msg, Object... params) {
-		addMsg(FacesMessage.SEVERITY_WARN, msg, params);
+    	FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_WARN, msg, params);
 	}
 
 	/**
@@ -116,7 +142,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgWarnToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
+    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
 	}
 	
 	/**
@@ -125,7 +151,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgErro(String msg, Object... params) {
-		addMsg(FacesMessage.SEVERITY_ERROR, msg, params);
+    	FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_ERROR, msg, params);
 	}
 
 	/**
@@ -136,7 +162,7 @@ public class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgErroToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
+    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
 	}
 	
 	/**
@@ -145,7 +171,7 @@ public class ControllerSupport implements Serializable{
 	 * @throws ValidatorException
 	 */
     protected void throwValidationException(String key) throws ValidatorException {
-		FacesMessage facesMessage = new FacesMessage(getMessageFromDefaultBundle(key));
+		FacesMessage facesMessage = new FacesMessage(FacesMessagesUtil.getMessageFromDefaultBundle(key));
 		facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
 		throw new ValidatorException(facesMessage);
 	}
@@ -158,7 +184,7 @@ public class ControllerSupport implements Serializable{
 	 * @return mensagem formatada
 	 */
     protected String getMessageFromDefaultBundle(String key, Object ... params){
-        return getMessageFromBundle(null, key, params);
+        return FacesMessagesUtil.getMessageFromDefaultBundle(key, params);
 	}
 	
 	/**
@@ -170,15 +196,7 @@ public class ControllerSupport implements Serializable{
 	 * @return mensagem formatada
 	 */
     protected String getMessageFromBundle(String bundleName, String key, Object ... params){
-		if(bundleName == null) bundleName = getContext().getApplication().getMessageBundle();
-		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, getContext().getViewRoot().getLocale());
-		
-		String msg = bundle.containsKey(key) ? bundle.getString(key) : key;
-
-		if(params == null || params.length == 0) return msg;
-		
-		MessageFormat form = new MessageFormat(msg);
-        return form.format(params);
+		return FacesMessagesUtil.getMessageFromBundle(bundleName, key, params);
 	}
 	
 	/**
@@ -212,14 +230,6 @@ public class ControllerSupport implements Serializable{
 				cleanComponent(child);
 			}
 		}
-	}
-	
-	private void addMsg(Severity severity, String msg, Object... params){
-		getContext().getMessageList().add(new FacesMessage(severity, getMessageFromDefaultBundle(msg, params), null));
-	}
-	
-	private void addMsgToComponent(Severity severity, String componentId, String msg, Object... params){
-		getContext().getMessageList(componentId).add(new FacesMessage(severity, getMessageFromDefaultBundle(msg, params), null));
 	}
 	
 }
