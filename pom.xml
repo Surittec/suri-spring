@@ -73,6 +73,13 @@
 			<version>${validation-api.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>${jsr250-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		
 		<!-- JSF -->
 		
@@ -159,8 +166,8 @@
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -242,6 +249,7 @@
 		<jstl.version>1.2</jstl.version>
 		<javax.inject.version>1</javax.inject.version>
 		<validation-api.version>1.0.0.GA</validation-api.version>
+		<jsr250-api.version>1.0</jsr250-api.version>
 		
 		<jsf.version>2.1.6</jsf.version>
 		<primefaces.version>3.2</primefaces.version>
@@ -250,9 +258,8 @@
 		<aspectj.version>1.6.12</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
 		
-		<hibernate-core.version>4.1.2.Final</hibernate-core.version>
-		<hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
-		<c3p0.version>0.9.1.2</c3p0.version>
+		<hibernate-core.version>3.3.1.GA</hibernate-core.version>
+		<hibernate-entitymanager.version>3.4.0.GA</hibernate-entitymanager.version>
 		
 	</properties>
 	

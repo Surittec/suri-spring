@@ -23,7 +23,11 @@
 			<system-event-class>javax.faces.event.PreDestroyViewMapEvent</system-event-class>
 			<source-class>javax.faces.component.UIViewRoot</source-class>
 		</system-event-listener>
-
+		
+		<!-- MESSAGES -->
+		
+		<message-bundle>Messages</message-bundle>
+		
 	</application>
 			
 </faces-config>

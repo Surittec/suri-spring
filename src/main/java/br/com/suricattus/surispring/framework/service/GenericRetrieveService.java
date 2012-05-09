@@ -23,6 +23,8 @@ package br.com.suricattus.surispring.framework.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,11 +32,12 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.stereotype.Service;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
+import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * Servico generico que auxilia na busca de entidades persistentes.
@@ -44,22 +47,23 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  */
 @Service
 public class GenericRetrieveService implements Serializable{
-
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ATTRIBUTES
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private SessionFactory sessionFactory;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// DEFAULT METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	Session getSession(){
-		return sessionFactory.getCurrentSession();
+		try{
+			return ApplicationContextUtil.getContext().getBean(SessionFactory.class).getCurrentSession();
+		}catch (NoSuchBeanDefinitionException e) {
+			return (Session)ApplicationContextUtil.getContext().getBean(EntityManager.class).getDelegate();
+		}
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

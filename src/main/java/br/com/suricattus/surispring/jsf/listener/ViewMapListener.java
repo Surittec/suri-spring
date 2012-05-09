@@ -24,18 +24,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostConstructViewMapEvent;
 import javax.faces.event.PreDestroyViewMapEvent;
 import javax.faces.event.SystemEvent;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.jsf.FacesContextUtils;
-
 import br.com.suricattus.surispring.spring.scope.ViewAccessScope;
 import br.com.suricattus.surispring.spring.scope.ViewScope;
 import br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder;
+import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * 
@@ -88,8 +85,7 @@ public class ViewMapListener implements javax.faces.event.ViewMapListener {
 	
 	@SuppressWarnings("unchecked")
 	private void holdViewAccessBeans(UIViewRoot viewRoot){
-		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
-		ViewAccessScopeHolder holder = applicationContext.getBean(ViewAccessScopeHolder.class);
+		ViewAccessScopeHolder holder = ApplicationContextUtil.getContext().getBean(ViewAccessScopeHolder.class);
 		holder.register((Map<String, Object>)viewRoot.getViewMap().get(ViewAccessScope.BEANS), (Map<String, Runnable>)viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS));
 	}
 }

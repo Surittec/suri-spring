@@ -22,13 +22,10 @@ package br.com.suricattus.surispring.spring.scope;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.jsf.FacesContextUtils;
 
 import br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder;
+import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * 
@@ -79,7 +76,6 @@ public class ViewAccessScope extends ViewScope{
 	}
 	
 	protected ViewAccessScopeHolder getScopeHolder(){
-		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance());
-		return applicationContext.getBean(ViewAccessScopeHolder.class);
+		return ApplicationContextUtil.getContext().getBean(ViewAccessScopeHolder.class);
 	}
 }

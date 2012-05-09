@@ -26,6 +26,8 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,10 +35,11 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
+import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * Classe suporte aos DAOs do projeto.
@@ -52,9 +55,6 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ATTRIBUTES
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	@Autowired
-	private SessionFactory sessionFactory;
 	
 	protected Class<T> tipo;
 	
@@ -74,7 +74,7 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 			}
 		}
 	}
-
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// PROTECTED METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +85,11 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	 * @return hibernate session
 	 */
 	protected Session getSession(){
-		return sessionFactory.getCurrentSession();
+		try{
+			return ApplicationContextUtil.getContext().getBean(SessionFactory.class).getCurrentSession();
+		}catch (NoSuchBeanDefinitionException e) {
+			return (Session)ApplicationContextUtil.getContext().getBean(EntityManager.class).getDelegate();
+		}
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
