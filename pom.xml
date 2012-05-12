@@ -104,6 +104,12 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		<dependency>
+			<groupId>com.ocpsoft</groupId>
+			<artifactId>prettyfaces-jsf2</artifactId>
+			<version>${prettyfaces-jsf2.version}</version>
+		</dependency>
+		
 		<!-- SPRING -->
 		
 		<dependency>
@@ -131,6 +137,27 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring-security.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		
@@ -253,8 +280,10 @@
 		
 		<jsf.version>2.1.6</jsf.version>
 		<primefaces.version>3.2</primefaces.version>
+		<prettyfaces-jsf2.version>3.3.3</prettyfaces-jsf2.version>
 		
 		<spring.version>3.1.1.RELEASE</spring.version>
+		<spring-security.version>3.1.0.RELEASE</spring-security.version>
 		<aspectj.version>1.6.12</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
 		

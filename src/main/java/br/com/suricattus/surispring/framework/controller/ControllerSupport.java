@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.ActionEvent;
@@ -36,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.suricattus.surispring.framework.controller.annotation.AppendBusinessMessages;
-import br.com.suricattus.surispring.jsf.util.FacesMessagesUtil;
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 /**
  * 
@@ -50,18 +51,26 @@ public abstract class ControllerSupport implements Serializable{
 
 	/**
      * Retorna a referencia do FacesContext.
-     * @return HttpServletResponse
+     * @return FacesContext
      */
     protected FacesContext getContext(){
-        return FacesContext.getCurrentInstance();
+        return FacesUtils.getContext();
     }
 	
+    /**
+     * Retorna a referencia do FacesContext.
+     * @return ExternalContext
+     */
+    protected ExternalContext getExternalContext(){
+        return FacesUtils.getExternalContext();
+    }
+    
     /**
      * Retorna a referencia para o HttpServletResponse atual.
      * @return HttpServletResponse
      */
     protected HttpServletResponse getResponse(){
-        return (HttpServletResponse)getContext().getExternalContext().getResponse();
+        return FacesUtils.getResponse();
     }
 
     /**
@@ -69,7 +78,7 @@ public abstract class ControllerSupport implements Serializable{
      * @return HttpServletRequest
      */
     protected HttpServletRequest getRequest(){
-        return (HttpServletRequest)getContext().getExternalContext().getRequest();
+        return FacesUtils.getRequest();
     }
     
     /**
@@ -77,7 +86,7 @@ public abstract class ControllerSupport implements Serializable{
      * @return ServletContext
      */
     protected ServletContext getServletContext(){
-        return (ServletContext)getContext().getExternalContext().getContext();
+        return FacesUtils.getServletContext();
     }
     
     /**
@@ -86,7 +95,7 @@ public abstract class ControllerSupport implements Serializable{
      * @return String - parametro do Request HTTP sob a chave 'name'
      */
     protected String getParameter(String name){
-        return getRequest().getParameter(name);
+        return FacesUtils.getParameter(name);
     }
 
     /**
@@ -94,7 +103,7 @@ public abstract class ControllerSupport implements Serializable{
      * @return HttpSession
      */
     protected HttpSession getSession(){
-        return getRequest().getSession();
+        return FacesUtils.getSession();
     }
     
     /**
@@ -102,7 +111,7 @@ public abstract class ControllerSupport implements Serializable{
      * @return Flash
      */
     protected Flash getFlash(){
-    	return getContext().getExternalContext().getFlash();
+    	return FacesUtils.getFlash();
     }
     
     /**
@@ -111,7 +120,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsg(String msg, Object ... params) {
-		FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_INFO, msg, params);
+    	FacesUtils.addMsg(FacesMessage.SEVERITY_INFO, msg, params);
 	}
 
 	/**
@@ -122,7 +131,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgToComponent(String componenteId, String msg, Object... params) {
-    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
 	}
 	
 	/**
@@ -131,7 +140,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgWarn(String msg, Object... params) {
-    	FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_WARN, msg, params);
+    	FacesUtils.addMsg(FacesMessage.SEVERITY_WARN, msg, params);
 	}
 
 	/**
@@ -142,7 +151,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgWarnToComponent(String componenteId, String msg, Object... params) {
-    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
 	}
 	
 	/**
@@ -151,7 +160,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgErro(String msg, Object... params) {
-    	FacesMessagesUtil.addMsg(FacesMessage.SEVERITY_ERROR, msg, params);
+    	FacesUtils.addMsg(FacesMessage.SEVERITY_ERROR, msg, params);
 	}
 
 	/**
@@ -162,7 +171,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgErroToComponent(String componenteId, String msg, Object... params) {
-    	FacesMessagesUtil.addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
 	}
 	
 	/**
@@ -171,7 +180,7 @@ public abstract class ControllerSupport implements Serializable{
 	 * @throws ValidatorException
 	 */
     protected void throwValidationException(String key) throws ValidatorException {
-		FacesMessage facesMessage = new FacesMessage(FacesMessagesUtil.getMessageFromDefaultBundle(key));
+		FacesMessage facesMessage = new FacesMessage(FacesUtils.getMessageFromDefaultBundle(key));
 		facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
 		throw new ValidatorException(facesMessage);
 	}
@@ -184,7 +193,7 @@ public abstract class ControllerSupport implements Serializable{
 	 * @return mensagem formatada
 	 */
     protected String getMessageFromDefaultBundle(String key, Object ... params){
-        return FacesMessagesUtil.getMessageFromDefaultBundle(key, params);
+        return FacesUtils.getMessageFromDefaultBundle(key, params);
 	}
 	
 	/**
@@ -196,7 +205,7 @@ public abstract class ControllerSupport implements Serializable{
 	 * @return mensagem formatada
 	 */
     protected String getMessageFromBundle(String bundleName, String key, Object ... params){
-		return FacesMessagesUtil.getMessageFromBundle(bundleName, key, params);
+		return FacesUtils.getMessageFromBundle(bundleName, key, params);
 	}
 	
 	/**

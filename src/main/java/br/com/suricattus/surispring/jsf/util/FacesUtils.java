@@ -25,16 +25,87 @@ import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Classe utilitaria de mensagens do JSF
+ * Classe utilitaria para o JSF
  * 
  * @author Lucas Lins
  *
  */
-public abstract class FacesMessagesUtil {
+public abstract class FacesUtils {
 
+	/**
+     * Retorna a referencia do FacesContext.
+     * @return FacesContext
+     */
+    public static FacesContext getContext(){
+        return FacesContext.getCurrentInstance();
+    }
+	
+    /**
+     * Retorna a referencia do ExternalContext.
+     * @return ExternalContext
+     */
+    public static ExternalContext getExternalContext(){
+    	return getContext().getExternalContext();
+    }
+    
+    /**
+     * Retorna a referencia para o HttpServletResponse atual.
+     * @return HttpServletResponse
+     */
+    public static HttpServletResponse getResponse(){
+        return (HttpServletResponse)getExternalContext().getResponse();
+    }
+
+    /**
+     * Retorna a referencia para o HttpServletRequest atual.
+     * @return HttpServletRequest
+     */
+    public static HttpServletRequest getRequest(){
+        return (HttpServletRequest)getExternalContext().getRequest();
+    }
+    
+    /**
+     * Retorna a instancia atual do contexto ServletContext.
+     * @return ServletContext
+     */
+    public static ServletContext getServletContext(){
+        return (ServletContext)getExternalContext().getContext();
+    }
+    
+    /**
+     * Retorna um parametro do Request HTTP (HttpServletRequest) sob a chave 'name'.
+     * @param name - chave do parametro no Request HTTP
+     * @return String - parametro do Request HTTP sob a chave 'name'
+     */
+    public static String getParameter(String name){
+        return getRequest().getParameter(name);
+    }
+
+    /**
+     * Retorna a referencia para o HttpSession atual.
+     * @return HttpSession
+     */
+    public static HttpSession getSession(){
+        return getRequest().getSession();
+    }
+    
+    /**
+     * Retorna o contexto de Flash
+     * @return Flash
+     */
+    public static Flash getFlash(){
+    	return getExternalContext().getFlash();
+    }
+	
 	/**
      * Adiciona uma mensagem no facesMessages com severidade info.
      * @param msg

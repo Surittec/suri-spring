@@ -28,7 +28,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 import br.com.suricattus.surispring.framework.util.CpfUtil;
-import br.com.suricattus.surispring.jsf.util.FacesMessagesUtil;
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 /**
  * Validador de CPF
@@ -43,9 +43,9 @@ public class CpfValidador implements Validator{
 		if(!CpfUtil.isValid(value, true)){
 			String label = (String)component.getAttributes().get("label");
 			if(label != null && !label.trim().equals("")){
-				throw new ValidatorException(FacesMessagesUtil.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF.detail", label));
+				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF.detail", label));
 			}else{
-				throw new ValidatorException(FacesMessagesUtil.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF"));
+				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF"));
 			}
 		}
 	}

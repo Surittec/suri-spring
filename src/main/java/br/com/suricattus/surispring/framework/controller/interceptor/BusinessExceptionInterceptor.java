@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.suricattus.surispring.framework.service.exception.BusinessException;
 import br.com.suricattus.surispring.framework.service.exception.BusinessException.Message;
-import br.com.suricattus.surispring.jsf.util.FacesMessagesUtil;
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 /**
  * Interceptor que captura excecoes de negocio e adiciona as mensagens no FacesMessages
@@ -44,7 +44,7 @@ public class BusinessExceptionInterceptor {
 		try{
 			return pjp.proceed();
 		}catch (BusinessException be) {
-			for(Message error : be.getErrors()) FacesMessagesUtil.addMsg(error.getSeverity(), error.getMessage(), error.getParams());
+			for(Message error : be.getErrors()) FacesUtils.addMsg(error.getSeverity(), error.getMessage(), error.getParams());
 			return null;
 		}
 	}
