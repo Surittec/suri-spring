@@ -9,7 +9,6 @@
 				version="2.0">
 	
 	<namespace>http://www.suricattus.com.br/jsf/ui</namespace>
-	<composite-library-name>components</composite-library-name>
 	
 	<tag>
 		<tag-name>cpf</tag-name>
