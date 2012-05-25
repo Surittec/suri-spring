@@ -21,6 +21,7 @@
 package br.com.suricattus.surispring.jsf.util;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -41,6 +42,9 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class FacesUtils {
 
+	private static String DEFAULT_BUNDLE_BASENAME = "javax.faces.Messages";
+	private static String SURICATTUS_BUNDLE_BASENAME = "br.com.suricattus.surispring.Messages";
+	
 	/**
      * Retorna a referencia do FacesContext.
      * @return FacesContext
@@ -219,16 +223,26 @@ public abstract class FacesUtils {
 	 */
     public static String getMessageFromBundle(String bundleName, String key, Object ... params){
     	FacesContext context = FacesContext.getCurrentInstance();
+    	Locale locale = context.getViewRoot().getLocale();
     	
 		if(bundleName == null) bundleName = context.getApplication().getMessageBundle();
-		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, context.getViewRoot().getLocale());
+		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 		
-		String msg = bundle.containsKey(key) ? bundle.getString(key) : key;
-
-		if(params == null || params.length == 0) return msg;
+		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
+		bundle = ResourceBundle.getBundle(SURICATTUS_BUNDLE_BASENAME, locale);
+		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
+		
+		bundle = ResourceBundle.getBundle(DEFAULT_BUNDLE_BASENAME, locale);
+		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
+		
+        return formatMsg(key, params);
+	}
+    
+    private static String formatMsg(String msg, Object ... params){
+    	if(params == null || params.length == 0) return msg;
 		MessageFormat form = new MessageFormat(msg);
         return form.format(params);
-	}
+    }
 	
 }
