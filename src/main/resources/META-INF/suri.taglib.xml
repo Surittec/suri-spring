@@ -12,15 +12,15 @@
 	
 	<tag>
 		<tag-name>cpf</tag-name>
-		<source>resources/facelets/components/cpf.xhtml</source>
+		<source>resources/suricattus/facelets/cpf.xhtml</source>
 	</tag>
 	<tag>
 		<tag-name>cnpj</tag-name>
-		<source>resources/facelets/components/cnpj.xhtml</source>
+		<source>resources/suricattus/facelets/cnpj.xhtml</source>
 	</tag>
 	<tag>
 		<tag-name>number</tag-name>
-		<source>resources/facelets/components/number.xhtml</source>
+		<source>resources/suricattus/facelets/number.xhtml</source>
 	</tag>
 	
 </facelet-taglib>
