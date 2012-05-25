@@ -8,7 +8,23 @@
 	<uri>http://www.suricattus.com.br/jsf/ui</uri>
 	<display-name>Suricattus</display-name>
 	<description>Suricattus JSF Components</description>
-		
+	
+	<tag>
+		<name>authorize</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Check user authorization.
+		</description>
+		<attribute>
+            <name>access</name>
+            <required>true</required>
+            <type>boolean</type>
+            <description>
+            	Expression-Based Access Control.
+            </description>
+        </attribute>
+	</tag>
 	<tag>
 		<name>cpf</name>
 		<tag-class />

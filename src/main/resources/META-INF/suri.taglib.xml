@@ -11,6 +11,10 @@
 	<namespace>http://www.suricattus.com.br/jsf/ui</namespace>
 	
 	<tag>
+		<tag-name>authorize</tag-name>
+		<source>resources/suricattus/facelets/authorize.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>cpf</tag-name>
 		<source>resources/suricattus/facelets/cpf.xhtml</source>
 	</tag>
