@@ -35,6 +35,21 @@ public abstract class CnpjUtil {
 			return true;
 		}
 	}
+	
+	public static String format(String cnpj){
+		if(cnpj == null) return null;
+		
+		if (cnpj.length() == 18 || cnpj.length() < 14) {
+			return cnpj;
+		} else {
+			return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14);
+		}
+	}
+	
+	public static String unformat(String value){
+		if(value == null || value.trim().equals("")) return null;
+		return value.replace(".", "").replace("-", "").replace("/", "");
+	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// PRIVATE METHODS

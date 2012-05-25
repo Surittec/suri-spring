@@ -18,36 +18,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package br.com.suricattus.surispring.jsf.validator;
+package br.com.suricattus.surispring.jsf.converter;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
-import br.com.suricattus.surispring.framework.util.CnpjUtil;
-import br.com.suricattus.surispring.jsf.util.FacesUtils;
+import br.com.suricattus.surispring.framework.util.CpfUtil;
 
 /**
- * Validador de CNPJ
+ * Converter de CPF
  * 
  * @author Lucas Lins
- * 
+ *
  */
-@FacesValidator("br.com.suricattus.surispring.jsf.validator.CnpjValidator")
-public class CnpjValidator implements Validator{
-	
-	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if(!CnpjUtil.isValid(value, true)){
-			String label = (String)component.getAttributes().get("label");
-			if(label != null && !label.trim().equals("")){
-				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ.detail", label));
-			}else{
-				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ"));
-			}
-		}
+@FacesConverter("br.com.suricattus.surispring.jsf.converter.CpfConverter")
+public class CpfConverter implements Converter{
+
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		return CpfUtil.unformat(value);
 	}
 
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		return CpfUtil.format((String)value);
+	}
+	
 }

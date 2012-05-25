@@ -64,6 +64,23 @@ public abstract class CpfUtil {
 		return false;
 	}
 	
+	public static String format(String cpf){
+		if (cpf == null) return null;
+
+		if (cpf.length() == 13) {
+			return cpf;
+		} else if (cpf.length() < 11) {
+			return cpf;
+		} else {
+			return cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
+		}
+	}
+	
+	public static String unformat(String value){
+		if(value == null || value.trim().equals("")) return null;
+		return value.replace(".", "").replace("-", "").replace("/", "");
+	}
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// PRIVATE METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

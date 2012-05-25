@@ -29,5 +29,23 @@
 		<message-bundle>Messages</message-bundle>
 		
 	</application>
-			
+	
+	
+	<!-- COMPONENTS -->
+	
+	<component>
+		<component-type>org.primefaces.component.InputMask</component-type>
+		<component-class>br.com.suricattus.surispring.jsf.primefaces.component.input.InputMask</component-class>
+	</component>
+
+	<!-- RENDERES -->
+
+	<render-kit>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.InputMaskRenderer</renderer-type>
+			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.input.InputMaskRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	
 </faces-config>
