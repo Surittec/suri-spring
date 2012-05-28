@@ -7,10 +7,10 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:c="http://java.sun.com/jsp/jstl/core"
 		xmlns:p="http://primefaces.org/ui"
-		xmlns:sf="http://www.suricattus.com.br/jsf/fn">
+		xmlns:sec="http://www.suricattus.com.br/jsf/fn">
 <ui:composition>
 	
-	<p:outputPanel rendered="#{sf:isAuthorized(access)}">
+	<p:outputPanel rendered="#{sf:hasAllRoles(roles)}">
 		<ui:insert/>
 	</p:outputPanel>
 	

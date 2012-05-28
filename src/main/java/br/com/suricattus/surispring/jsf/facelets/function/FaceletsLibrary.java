@@ -23,6 +23,8 @@ package br.com.suricattus.surispring.jsf.facelets.function;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import br.com.suricattus.surispring.spring.security.util.SecurityUtil;
+
 import com.sun.faces.facelets.tag.AbstractTagLibrary;
 
 /**
@@ -44,6 +46,7 @@ public class FaceletsLibrary extends AbstractTagLibrary {
 	public FaceletsLibrary() {
 		super(NAMESPACE);
 		init(FaceletsFunctions.class);
+		init(SecurityUtil.class);
 	}
 	
 	// PRIVATE METHODS ****************************

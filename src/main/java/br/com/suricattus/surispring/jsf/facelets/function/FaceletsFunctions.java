@@ -20,27 +20,10 @@
  */
 package br.com.suricattus.surispring.jsf.facelets.function;
 
-import java.io.IOException;
 import java.text.DecimalFormatSymbols;
-import java.util.Map;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.expression.Expression;
-import org.springframework.security.access.expression.ExpressionUtils;
-import org.springframework.security.access.expression.SecurityExpressionHandler;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.FilterInvocation;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import br.com.suricattus.surispring.jsf.facelets.util.ComponentSupport;
 import br.com.suricattus.surispring.jsf.facelets.util.input.InputNumberTag;
-import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 
 /**
@@ -80,22 +63,6 @@ public class FaceletsFunctions {
 		StringBuilder mask = new StringBuilder();
 		for(int i = 0; i < InputNumberTag.getFractionDigits(fractionDigits) + 1; i++) mask.append("0");
 		return mask.toString();
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static boolean isAuthorized(java.lang.String access){
-		ApplicationContext appContext = WebApplicationContextUtils.getRequiredWebApplicationContext((ServletContext)FacesUtils.getExternalContext().getContext());
-		Map<String, SecurityExpressionHandler> expressionHandlres = appContext.getBeansOfType(SecurityExpressionHandler.class);
-		SecurityExpressionHandler handler = (SecurityExpressionHandler)expressionHandlres.values().toArray()[0];
-		Expression accessExpression = handler.getExpressionParser().parseExpression(access);
-		
-		FilterInvocation f = new FilterInvocation(FacesUtils.getRequest(), FacesUtils.getResponse(), new FilterChain() {
-			public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-				throw new UnsupportedOperationException();
-			}
-		});
-		
-		return ExpressionUtils.evaluateAsBoolean(accessExpression, handler.createEvaluationContext(SecurityContextHolder.getContext().getAuthentication(), f));
 	}
 	
 }

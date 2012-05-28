@@ -10,18 +10,19 @@
 	<description>Suricattus JSF Components</description>
 	
 	<tag>
-		<name>authorize</name>
+		<name>cnpj</name>
 		<tag-class />
 		<body-content>empty</body-content>
 		<description>
-			Check user authorization.
+			Utilizado em conjunto com inputMask do Primefaces. Insere mascara, validador e converter.
 		</description>
 		<attribute>
-            <name>access</name>
-            <required>true</required>
+            <name>autoTab</name>
+            <required>false</required>
             <type>boolean</type>
             <description>
-            	Expression-Based Access Control.
+            	Automatically tab when field is completely filled. Default is false. Use for all components, except for generic ones. 
+            	For genric components autotab can be specified within mask attribute.
             </description>
         </attribute>
 	</tag>
@@ -43,20 +44,75 @@
         </attribute>
 	</tag>
 	<tag>
-		<name>cnpj</name>
+		<name>hasAllRoles</name>
 		<tag-class />
 		<body-content>empty</body-content>
 		<description>
-			Utilizado em conjunto com inputMask do Primefaces. Insere mascara, validador e converter.
+			Renders the body if true.
 		</description>
 		<attribute>
-            <name>autoTab</name>
-            <required>false</required>
+            <name>roles</name>
+            <required>true</required>
             <type>boolean</type>
-            <description>
-            	Automatically tab when field is completely filled. Default is false. Use for all components, except for generic ones. 
-            	For genric components autotab can be specified within mask attribute.
-            </description>
+            <description>Comma seperated list of roles.</description>
+        </attribute>
+	</tag>
+	<tag>
+		<name>hasAnyRole</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Renders the body if true.
+		</description>
+		<attribute>
+            <name>roles</name>
+            <required>true</required>
+            <type>boolean</type>
+            <description>Comma seperated list of roles.</description>
+        </attribute>
+	</tag>
+	<tag>
+		<name>hasNoRole</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Renders the body if true.
+		</description>
+		<attribute>
+            <name>roles</name>
+            <required>true</required>
+            <type>boolean</type>
+            <description>Comma seperated list of roles.</description>
+        </attribute>
+	</tag>
+	<tag>
+		<name>isAnonymous</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Renders the body if true.
+		</description>
+	</tag>
+	<tag>
+		<name>isAuthenticated</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Renders the body if true.
+		</description>
+	</tag>
+	<tag>
+		<name>isAuthorized</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Renders the body if true.
+		</description>
+		<attribute>
+            <name>access</name>
+            <required>true</required>
+            <type>boolean</type>
+            <description>Spring Security Expression-Based Access Control.</description>
         </attribute>
 	</tag>
 	<tag>
