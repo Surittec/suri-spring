@@ -28,12 +28,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.swing.Spring;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.expression.Expression;
 import org.springframework.security.access.expression.ExpressionUtils;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
@@ -43,9 +42,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import br.com.suricattus.surispring.jsf.util.FacesUtils;
+import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * Spring Security Utility Class
@@ -65,8 +64,7 @@ public abstract class SecurityUtil {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static boolean isAuthorized(String access){
-		ApplicationContext appContext = WebApplicationContextUtils.getRequiredWebApplicationContext((ServletContext)FacesUtils.getExternalContext().getContext());
-		Map<String, SecurityExpressionHandler> expressionHandlres = appContext.getBeansOfType(SecurityExpressionHandler.class);
+		Map<String, SecurityExpressionHandler> expressionHandlres = ApplicationContextUtil.getContext().getBeansOfType(SecurityExpressionHandler.class);
 		SecurityExpressionHandler handler = (SecurityExpressionHandler)expressionHandlres.values().toArray()[0];
 		Expression accessExpression = handler.getExpressionParser().parseExpression(access);
 		

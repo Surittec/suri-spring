@@ -43,6 +43,7 @@ import javax.servlet.http.HttpSession;
 public abstract class FacesUtils {
 
 	private static String DEFAULT_BUNDLE_BASENAME = "javax.faces.Messages";
+	private static String PRIMEFACES_BUNDLE_BASENAME = "org.primefaces.Messages";
 	private static String SURICATTUS_BUNDLE_BASENAME = "br.com.suricattus.surispring.Messages";
 	
 	/**
@@ -231,6 +232,9 @@ public abstract class FacesUtils {
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
 		bundle = ResourceBundle.getBundle(SURICATTUS_BUNDLE_BASENAME, locale);
+		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
+		
+		bundle = ResourceBundle.getBundle(PRIMEFACES_BUNDLE_BASENAME, locale);
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
 		bundle = ResourceBundle.getBundle(DEFAULT_BUNDLE_BASENAME, locale);
