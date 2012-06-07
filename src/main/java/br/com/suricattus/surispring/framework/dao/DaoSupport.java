@@ -27,19 +27,17 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
-import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * Classe suporte aos DAOs do projeto.
@@ -57,6 +55,9 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	protected Class<T> tipo;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// CONSTRUCTORS
@@ -85,11 +86,7 @@ public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>
 	 * @return hibernate session
 	 */
 	protected Session getSession(){
-		try{
-			return ApplicationContextUtil.getContext().getBean(SessionFactory.class).getCurrentSession();
-		}catch (NoSuchBeanDefinitionException e) {
-			return (Session)ApplicationContextUtil.getContext().getBean(EntityManager.class).getDelegate();
-		}
+		return (Session)entityManager.getDelegate();
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

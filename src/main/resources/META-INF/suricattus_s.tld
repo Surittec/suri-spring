@@ -44,6 +44,14 @@
         </attribute>
 	</tag>
 	<tag>
+		<name>email</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Insere validador.
+		</description>
+	</tag>
+	<tag>
 		<name>hasAllRoles</name>
 		<tag-class />
 		<body-content>empty</body-content>

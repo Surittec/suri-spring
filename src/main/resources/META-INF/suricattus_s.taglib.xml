@@ -19,6 +19,10 @@
 		<source>resources/suricattus/facelets/cpf.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>email</tag-name>
+		<source>resources/suricattus/facelets/email.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>hasAllRoles</tag-name>
 		<source>resources/suricattus/facelets/hasAllRoles.xhtml</source>
 	</tag>

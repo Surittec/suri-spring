@@ -43,9 +43,9 @@ public class CnpjValidator implements Validator{
 		if(!CnpjUtil.isValid(value, true)){
 			String label = (String)component.getAttributes().get("label");
 			if(label != null && !label.trim().equals("")){
-				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ.detail", label));
+				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ.detail", label));
 			}else{
-				throw new ValidatorException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ"));
+				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CNPJ"));
 			}
 		}
 	}

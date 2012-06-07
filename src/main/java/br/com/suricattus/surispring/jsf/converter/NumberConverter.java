@@ -58,7 +58,7 @@ public class NumberConverter implements Converter{
 			}
 			return nf.parse(value);
 		} catch (Exception e) {
-			throw new ConverterException(FacesUtils.create(FacesMessage.SEVERITY_ERROR, "javax.faces.component.UIInput.CONVERSION"));
+			throw new ConverterException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.component.UIInput.CONVERSION"));
 		}
 	}
 	

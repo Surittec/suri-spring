@@ -20,6 +20,8 @@
  */
 package br.com.suricattus.surispring.jsf.validator;
 
+import java.util.regex.Matcher;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,27 +29,47 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import br.com.suricattus.surispring.framework.util.CpfUtil;
 import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 /**
- * Validador de CPF
+ * Validador de E-mail
  * 
  * @author Lucas Lins
  *
  */
-@FacesValidator("br.com.suricattus.surispring.jsf.validator.CpfValidador")
-public class CpfValidador implements Validator{
+@FacesValidator("br.com.suricattus.surispring.jsf.validator.EmailValidator")
+public class EmailValidator implements Validator{
+
+	private static String ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
+	private static String DOMAIN = "(" + ATOM + "+(\\." + ATOM + "+)*";
+	private static String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
+
+	private static java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+			"^" + ATOM + "+(\\." + ATOM + "+)*@"
+					+ DOMAIN
+					+ "|"
+					+ IP_DOMAIN
+					+ ")$",
+			java.util.regex.Pattern.CASE_INSENSITIVE
+	);
 
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if(!CpfUtil.isValid(value, true)){
+		if(!isValid((String)value)){
 			String label = (String)component.getAttributes().get("label");
 			if(label != null && !label.trim().equals("")){
-				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF.detail", label));
+				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.Email.detail", label));
 			}else{
-				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.CPF"));
+				throw new ValidatorException(FacesUtils.createMessage(FacesMessage.SEVERITY_ERROR, "javax.faces.validator.Email"));
 			}
 		}
+	}
+	
+	private boolean isValid(String value) {
+		if ( value == null || value.length() == 0 ) {
+			return true;
+		}
+		Matcher m = pattern.matcher( value );
+		return m.matches();
 	}
 	
 }

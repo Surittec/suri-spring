@@ -68,12 +68,22 @@ public class BusinessException extends RuntimeException{
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	/**
+	 * Adiciona uma nova mensagem para um component na lista de mensagens desta excecao.
+	 * @param componentId
+	 * @param message
+	 * @param params
+	 */
+	public void addMessageToComponent(String componentId, String message, Object ... params){
+		add(componentId, message, FacesMessage.SEVERITY_ERROR, params);
+	}
+	
+	/**
 	 * Adiciona uma nova mensagem na lista de mensagens desta excecao.
 	 * @param message
 	 * @param params
 	 */
 	public void addMessage(String message, Object ... params){
-		add(message, FacesMessage.SEVERITY_ERROR, params);
+		add(null, message, FacesMessage.SEVERITY_ERROR, params);
 	}
 	
 	public List<Message> getErrors(){ 
@@ -84,8 +94,8 @@ public class BusinessException extends RuntimeException{
 	// PRIVATE METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private void add(String message, FacesMessage.Severity severity, Object ... params){
-		errors.add(new Message(message, severity, params));
+	private void add(String componentId, String message, FacesMessage.Severity severity, Object ... params){
+		errors.add(new Message(componentId, message, severity, params));
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,16 +103,24 @@ public class BusinessException extends RuntimeException{
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	public class Message{
+		private String componentId;
 		private String message;
 		private FacesMessage.Severity severity;
 		private Object[] params;
 		
-		public Message(String message, Severity severity, Object[] params) {
+		public Message(String componentId, String message, Severity severity, Object[] params) {
+			this.componentId = componentId;
 			this.message = message;
 			this.severity = severity;
 			this.params = params;
 		}
-
+		
+		public String getComponentId() {
+			return componentId;
+		}
+		public void setComponentId(String componentId) {
+			this.componentId = componentId;
+		}
 		public String getMessage() {
 			return message;
 		}

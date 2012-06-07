@@ -128,7 +128,7 @@ public abstract class FacesUtils {
      * @param params
      */
     public static void addMsgToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
+		addMsgToComponent(componenteId, FacesMessage.SEVERITY_INFO, msg, params);
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public abstract class FacesUtils {
      * @param params
      */
     public static void addMsgWarnToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
+		addMsgToComponent(componenteId, FacesMessage.SEVERITY_WARN, msg, params);
 	}
 	
 	/**
@@ -168,7 +168,7 @@ public abstract class FacesUtils {
      * @param params
      */
     public static void addMsgErroToComponent(String componenteId, String msg, Object... params) {
-		addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
+		addMsgToComponent(componenteId, FacesMessage.SEVERITY_ERROR, msg, params);
 	}
 	
     /**
@@ -178,7 +178,7 @@ public abstract class FacesUtils {
      * @param params
      */
 	public static void addMsg(Severity severity, String msg, Object... params){
-		FacesContext.getCurrentInstance().addMessage(null, create(severity, msg, params));
+		FacesContext.getCurrentInstance().addMessage(null, createMessage(severity, msg, params));
 	}
 	
 	/**
@@ -188,8 +188,8 @@ public abstract class FacesUtils {
 	 * @param msg
 	 * @param params
 	 */
-	public static void addMsgToComponent(Severity severity, String componentId, String msg, Object... params){
-		FacesContext.getCurrentInstance().addMessage(componentId, create(severity, msg, params));
+	public static void addMsgToComponent(String componentId, Severity severity, String msg, Object... params){
+		FacesContext.getCurrentInstance().addMessage(componentId, createMessage(severity, msg, params));
 	}
 	
 	/**
@@ -199,7 +199,7 @@ public abstract class FacesUtils {
 	 * @param params
 	 * @return
 	 */
-	public static FacesMessage create(Severity severity, String msg, Object... params){
+	public static FacesMessage createMessage(Severity severity, String msg, Object... params){
 		return new FacesMessage(severity, getMessageFromDefaultBundle(msg, params), null);
 	}
 	

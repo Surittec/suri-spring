@@ -131,7 +131,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgToComponent(String componenteId, String msg, Object... params) {
-    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_INFO, componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(componenteId, FacesMessage.SEVERITY_INFO, msg, params);
 	}
 	
 	/**
@@ -151,7 +151,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgWarnToComponent(String componenteId, String msg, Object... params) {
-    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_WARN,componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(componenteId, FacesMessage.SEVERITY_WARN, msg, params);
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public abstract class ControllerSupport implements Serializable{
      * @param params
      */
     protected void addMsgErroToComponent(String componenteId, String msg, Object... params) {
-    	FacesUtils.addMsgToComponent(FacesMessage.SEVERITY_ERROR, componenteId, msg, params);
+    	FacesUtils.addMsgToComponent(componenteId, FacesMessage.SEVERITY_ERROR, msg, params);
 	}
 	
 	/**

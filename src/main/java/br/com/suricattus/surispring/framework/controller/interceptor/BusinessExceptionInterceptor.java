@@ -44,7 +44,13 @@ public class BusinessExceptionInterceptor {
 		try{
 			return pjp.proceed();
 		}catch (BusinessException be) {
-			for(Message error : be.getErrors()) FacesUtils.addMsg(error.getSeverity(), error.getMessage(), error.getParams());
+			for(Message error : be.getErrors()) {
+				if(error.getComponentId() != null){
+					FacesUtils.addMsgToComponent(error.getComponentId(), error.getSeverity(), error.getMessage(), error.getParams());
+				}else{
+					FacesUtils.addMsg(error.getSeverity(), error.getMessage(), error.getParams());
+				}
+			}
 			return null;
 		}
 	}
