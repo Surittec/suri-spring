@@ -28,8 +28,6 @@
 	
 	<!-- CUSTOM SCOPES -->
 	
-	<bean class="br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder" destroy-method="destroy" scope="request"/>
-	
 	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
 		<property name="scopes">
 			<map>

@@ -24,16 +24,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.ObjectFactory;
 
-import br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder;
-import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 /**
  * 
  * @author Lucas Lins
- *
+ * 
  */
 public class ViewAccessScope extends ViewScope{
-
+	
 	public static final String CALLBACKS = ViewAccessScope.class.getName() + ".callbacks";
 	public static final String BEANS = ViewAccessScope.class.getName() +  ".beans";
 	
@@ -42,10 +41,9 @@ public class ViewAccessScope extends ViewScope{
 		Object instance = beansMap.get(name);
 		if(instance == null) {
 			
-			ViewAccessScopeHolder holder = getScopeHolder();
-			instance = holder.removeBean(name);
+			instance = getFlashBeansMap().remove(name);
 			if(instance != null){
-				Runnable callback = holder.removeCallback(name);
+				Runnable callback = getFlashCallbacksMap().remove(name);
 				if(callback != null){
 					registerDestructionCallback(name, callback);
 				}
@@ -75,7 +73,14 @@ public class ViewAccessScope extends ViewScope{
 		return CALLBACKS;
 	}
 	
-	protected ViewAccessScopeHolder getScopeHolder(){
-		return ApplicationContextUtil.getContext().getBean(ViewAccessScopeHolder.class);
+	@SuppressWarnings("unchecked")
+	protected Map<String,Object> getFlashBeansMap() {
+		return (Map<String, Object>) FacesUtils.getFlash().get(getBeansIdentifier());
 	}
+	
+	@SuppressWarnings("unchecked")
+	protected Map<String,Runnable> getFlashCallbacksMap() {
+		return (Map<String, Runnable>) FacesUtils.getFlash().get(getCallbacksIdentifier());
+	}
+	
 }

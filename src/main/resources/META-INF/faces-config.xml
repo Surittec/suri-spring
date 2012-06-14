@@ -26,6 +26,9 @@
 		
 	</application>
 	
+	<lifecycle>
+		<phase-listener>br.com.suricattus.surispring.jsf.listener.ViewAccessScopeListener</phase-listener>
+	</lifecycle>
 	
 	<!-- COMPONENTS -->
 	

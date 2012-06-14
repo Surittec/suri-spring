@@ -188,6 +188,16 @@ public abstract class SecurityUtil {
 		return authorities;
 	}
 	
+	/**
+	 * Get logged user principal name.
+	 * 
+	 * @return
+	 */
+	public static String getName(){
+		if(!isAuthenticated()) return null;
+		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+	
 	//------------------------------------------
 	// PRIVATE METHODS
 	//------------------------------------------

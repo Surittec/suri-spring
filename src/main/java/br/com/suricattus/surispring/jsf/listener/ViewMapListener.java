@@ -31,13 +31,11 @@ import javax.faces.event.SystemEvent;
 
 import br.com.suricattus.surispring.spring.scope.ViewAccessScope;
 import br.com.suricattus.surispring.spring.scope.ViewScope;
-import br.com.suricattus.surispring.spring.scope.holder.ViewAccessScopeHolder;
-import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
  * 
  * @author Lucas Lins
- *
+ * 
  */
 public class ViewMapListener implements javax.faces.event.ViewMapListener {
 	
@@ -53,8 +51,7 @@ public class ViewMapListener implements javax.faces.event.ViewMapListener {
 			PreDestroyViewMapEvent viewMapEvent = (PreDestroyViewMapEvent) event;
 			UIViewRoot viewRoot = (UIViewRoot) viewMapEvent.getComponent();
 			
-			destroyViewBeans(viewRoot);
-			holdViewAccessBeans(viewRoot);
+			destroyBeans(viewRoot);
 		}
 	}
 	
@@ -75,17 +72,17 @@ public class ViewMapListener implements javax.faces.event.ViewMapListener {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void destroyViewBeans(UIViewRoot viewRoot){
+	private void destroyBeans(UIViewRoot viewRoot){
 		Map<String, Runnable> callbacks = (Map<String, Runnable>) viewRoot.getViewMap().get(ViewScope.CALLBACKS);
 		if (callbacks != null) {
 			for (Runnable c : callbacks.values()) c.run();
 			callbacks.clear();
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void holdViewAccessBeans(UIViewRoot viewRoot){
-		ViewAccessScopeHolder holder = ApplicationContextUtil.getContext().getBean(ViewAccessScopeHolder.class);
-		holder.register((Map<String, Object>)viewRoot.getViewMap().get(ViewAccessScope.BEANS), (Map<String, Runnable>)viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS));
+		
+		callbacks = (Map<String, Runnable>) viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS);
+		if (callbacks != null) {
+			for (Runnable c : callbacks.values()) c.run();
+			callbacks.clear();
+		}
 	}
 }

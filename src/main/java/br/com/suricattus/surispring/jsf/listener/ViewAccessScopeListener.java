@@ -18,52 +18,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package br.com.suricattus.surispring.spring.scope.holder;
+package br.com.suricattus.surispring.jsf.listener;
 
-import java.io.Serializable;
-import java.util.Map;
+import javax.faces.component.UIViewRoot;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
+
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
+import br.com.suricattus.surispring.spring.scope.ViewAccessScope;
 
 /**
  * 
  * @author Lucas Lins
  *
  */
-public class ViewAccessScopeHolder implements Serializable{
-
+public class ViewAccessScopeListener implements PhaseListener{
+	
 	private static final long serialVersionUID = 1L;
 	
-	private Map<String, Object> beans;
-	private Map<String, Runnable> callbacks;
-	
-	public void register(Map<String, Object> beans, Map<String, Runnable> callbacks){
-		this.beans = beans;
-		this.callbacks = callbacks;
-	}
-	
-	public Object removeBean(String name){
-		if(beans != null){
-			return beans.remove(name);
-		}
-		return null;
-	}
-	
-	public Runnable removeCallback(String name){
-		if(callbacks != null){
-			return callbacks.remove(name);
-		}
-		return null;
-	}
-	
-	public void destroy(){
-		if(beans != null){
-			beans.clear();
-			beans = null;
-		}
-		
-		if(callbacks != null){
-			for(Runnable callback : callbacks.values()) callback.run();
-			callbacks.clear();
-			callbacks = null;
+	public void afterPhase(PhaseEvent event) {
+		if(!FacesUtils.getFlash().containsKey(ViewAccessScope.BEANS)){
+			UIViewRoot viewRoot = event.getFacesContext().getViewRoot();
+			FacesUtils.getFlash().put(ViewAccessScope.BEANS, viewRoot.getViewMap().get(ViewAccessScope.BEANS));
+			FacesUtils.getFlash().put(ViewAccessScope.CALLBACKS, viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS));
 		}
 	}
+
+	public void beforePhase(PhaseEvent event) {}
+
+	public PhaseId getPhaseId() {
+		return PhaseId.RESTORE_VIEW;
+	}
+	
 }
