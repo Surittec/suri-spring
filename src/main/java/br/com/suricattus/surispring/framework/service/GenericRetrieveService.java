@@ -32,18 +32,17 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Service;
 
 import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
 
 /**
  * Servico generico que auxilia na busca de entidades persistentes.
+ * Pode ser adicionado no applicationContext de sua aplicacao.
  * 
  * @author Lucas Lins
  * 
  */
-@Service
 public class GenericRetrieveService implements Serializable{
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
