@@ -178,7 +178,7 @@ public abstract class FacesUtils {
      * @param params
      */
 	public static void addMsg(Severity severity, String msg, Object... params){
-		FacesContext.getCurrentInstance().addMessage(null, createMessage(severity, msg, params));
+		addMsgToComponent(null, severity, msg, params);
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public abstract class FacesUtils {
 	 */
     public static String getMessageFromBundle(String bundleName, String key, Object ... params){
     	FacesContext context = FacesContext.getCurrentInstance();
-    	Locale locale = context.getViewRoot().getLocale();
+    	Locale locale = context.getViewRoot() != null ? context.getViewRoot().getLocale() : context.getExternalContext().getRequestLocale();
     	
 		if(bundleName == null) bundleName = context.getApplication().getMessageBundle();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);

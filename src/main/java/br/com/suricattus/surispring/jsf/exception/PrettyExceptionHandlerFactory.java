@@ -18,19 +18,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package br.com.suricattus.surispring.framework.domain;
-
-import java.io.Serializable;
+package br.com.suricattus.surispring.jsf.exception;
 
 /**
- * Interface suporte as entidades.
- * Util para utilizacao em bind com xml (web services).
- * 
+ * Pretty Exceptions Handler Factory
  * @author Lucas Lins
  *
  */
-public interface Entity extends Serializable {
+public class PrettyExceptionHandlerFactory extends javax.faces.context.ExceptionHandlerFactory {
 
-	public Serializable getIdentifier();
+	private final javax.faces.context.ExceptionHandlerFactory parent;
 	
+	public PrettyExceptionHandlerFactory(final javax.faces.context.ExceptionHandlerFactory parent) {
+		this.parent = parent;
+	}
+
+	@Override
+	public PrettyExceptionHandler getExceptionHandler() {
+		return new PrettyExceptionHandler(this.parent.getExceptionHandler());
+	}
+
 }

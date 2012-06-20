@@ -7,6 +7,14 @@
 									http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 	
 	
+	<name>surispring</name>
+	
+	<ordering>
+		<after>
+			<name>primefaces</name>
+		</after>
+	</ordering>
+	
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		
@@ -26,8 +34,13 @@
 		
 	</application>
 	
+	<factory>
+		<exception-handler-factory>br.com.suricattus.surispring.jsf.exception.PrettyExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+	
 	<lifecycle>
 		<phase-listener>br.com.suricattus.surispring.jsf.listener.ViewAccessScopeListener</phase-listener>
+		<phase-listener>com.ocpsoft.pretty.faces.event.MultiPageMessagesSupport</phase-listener>
 	</lifecycle>
 	
 	<!-- COMPONENTS -->

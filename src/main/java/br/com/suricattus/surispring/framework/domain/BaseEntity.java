@@ -34,12 +34,12 @@ public abstract class BaseEntity implements Entity{
 
 	@Override
 	public String toString() {
-		return String.format("%s[id = %s]", getClass().getName(), getId());
+		return String.format("%s[id = %s]", getClass().getName(), getIdentifier());
 	}
 
 	@Override
 	public int hashCode() {
-		Object id = getId();
+		Object id = getIdentifier();
 		final int prime = 37;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -55,10 +55,10 @@ public abstract class BaseEntity implements Entity{
 		if (getClass() != objClass) return false;
 		
 		final BaseEntity other = (BaseEntity) obj;
-		Object id = getId();
+		Object id = getIdentifier();
 		if (id == null) {
-			if (other.getId() != null) return false;
-		}else if (!id.equals(other.getId())) {
+			if (other.getIdentifier() != null) return false;
+		}else if (!id.equals(other.getIdentifier())) {
 			return false;
 		}
 		return true;

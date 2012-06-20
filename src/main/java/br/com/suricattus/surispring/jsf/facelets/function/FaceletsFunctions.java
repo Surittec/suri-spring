@@ -24,6 +24,7 @@ import java.text.DecimalFormatSymbols;
 
 import br.com.suricattus.surispring.jsf.facelets.util.ComponentSupport;
 import br.com.suricattus.surispring.jsf.facelets.util.input.InputNumberTag;
+import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
 
 /**
@@ -65,4 +66,7 @@ public class FaceletsFunctions {
 		return mask.toString();
 	}
 	
+	public static boolean hasGlobalMessages(){
+		return !FacesUtils.getContext().getMessageList(null).isEmpty();
+	}
 }
