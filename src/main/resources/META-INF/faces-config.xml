@@ -58,6 +58,11 @@
 			<renderer-type>org.primefaces.component.InputMaskRenderer</renderer-type>
 			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.input.InputMaskRenderer</renderer-class>
 		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.SelectOneMenuRenderer</renderer-type>
+			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.select.SelectOneMenuRenderer</renderer-class>
+		</renderer>
 	</render-kit>
 	
 </faces-config>

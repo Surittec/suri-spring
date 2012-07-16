@@ -21,6 +21,8 @@
 package br.com.suricattus.surispring.jsf.exception;
 
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewExpiredException;
@@ -50,6 +52,10 @@ public class PrettyExceptionHandler extends ExceptionHandlerWrapper {
 	private final FacesMessagesUtils messagesUtils = new FacesMessagesUtils();
 	private final javax.faces.context.ExceptionHandler wrapped;
 	
+	private static final Logger logger = Logger.getLogger(PrettyExceptionHandler.class.getName());
+
+	private boolean catched;
+	
 	public PrettyExceptionHandler(final javax.faces.context.ExceptionHandler wrapped) {
 		this.wrapped = wrapped;
 	}
@@ -61,6 +67,8 @@ public class PrettyExceptionHandler extends ExceptionHandlerWrapper {
 	
 	@Override
 	public void handle() throws FacesException {
+		catched = false;
+		
 		for (final Iterator<ExceptionQueuedEvent> it = getUnhandledExceptionQueuedEvents().iterator(); it.hasNext();) {
 			Throwable t = it.next().getContext().getException();
 			while ((t instanceof FacesException || t instanceof ELException) && t.getCause() != null) {
@@ -82,22 +90,21 @@ public class PrettyExceptionHandler extends ExceptionHandlerWrapper {
 	protected boolean handleException(Iterator<ExceptionQueuedEvent> it, Throwable t, Class<? extends Throwable> type, String message){
 		if(type.isAssignableFrom(t.getClass())){
 			try{
-				FacesContext facesContext = FacesUtils.getContext();
-				
-				FacesUtils.addMsgErro(message);
-				messagesUtils.saveMessages(facesContext, facesContext.getExternalContext().getSessionMap());
-				
-				facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, "pretty:error");
-				facesContext.renderResponse();
-				
-				return true;
-			}finally{
-				it.remove();
-				
-				while(it.hasNext()){
-					it.next();
-					it.remove();
+				if(!catched){
+					FacesContext facesContext = FacesUtils.getContext();
+					
+					FacesUtils.addMsgErro(message);
+					messagesUtils.saveMessages(facesContext, facesContext.getExternalContext().getSessionMap());
+					
+					facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, "pretty:error");
+					facesContext.renderResponse();
+					
+					return true;
 				}
+			}finally{
+				catched = true;
+				logger.log(Level.SEVERE, t.getLocalizedMessage(), t);
+				it.remove();
 			}
 		}
 		return false;

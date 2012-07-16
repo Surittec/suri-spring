@@ -52,6 +52,19 @@
 		</description>
 	</tag>
 	<tag>
+		<name>enum</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Insere conversor e possibilidade de noSelectionLabel.
+		</description>
+		<attribute>
+            <name>noSelectionLabel</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+	</tag>
+	<tag>
 		<name>hasAllRoles</name>
 		<tag-class />
 		<body-content>empty</body-content>
