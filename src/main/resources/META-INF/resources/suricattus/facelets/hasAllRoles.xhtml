@@ -10,9 +10,9 @@
 		xmlns:sec="http://www.suricattus.com.br/jsf/fn">
 <ui:composition>
 	
-	<p:outputPanel rendered="#{sf:hasAllRoles(roles)}">
+	<h:panelGroup rendered="#{sf:hasAllRoles(roles)}">
 		<ui:insert/>
-	</p:outputPanel>
+	</h:panelGroup>
 	
 </ui:composition>
 </html>
