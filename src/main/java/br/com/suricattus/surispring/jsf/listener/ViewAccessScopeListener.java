@@ -38,7 +38,7 @@ public class ViewAccessScopeListener implements PhaseListener{
 	private static final long serialVersionUID = 1L;
 	
 	public void afterPhase(PhaseEvent event) {
-		if(!FacesUtils.getFlash().containsKey(ViewAccessScope.BEANS)){
+		if(event.getFacesContext().getViewRoot() != null && !FacesUtils.getFlash().containsKey(ViewAccessScope.BEANS)){
 			UIViewRoot viewRoot = event.getFacesContext().getViewRoot();
 			FacesUtils.getFlash().put(ViewAccessScope.BEANS, viewRoot.getViewMap().get(ViewAccessScope.BEANS));
 			FacesUtils.getFlash().put(ViewAccessScope.CALLBACKS, viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS));

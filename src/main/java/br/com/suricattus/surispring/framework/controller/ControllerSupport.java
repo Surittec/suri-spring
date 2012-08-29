@@ -47,8 +47,30 @@ import br.com.suricattus.surispring.jsf.util.FacesUtils;
 @AppendBusinessMessages
 public abstract class ControllerSupport implements Serializable{
 
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// ATTRIBUTES
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
 	private static final long serialVersionUID = 1L;
 
+	protected String idParam;
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// PUBLIC METHODS
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	public String getIdParam() {
+		return idParam;
+	}
+
+	public void setIdParam(String idParam) {
+		this.idParam = idParam;
+	}
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// PROTECTED METHODS
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
 	/**
      * Retorna a referencia do FacesContext.
      * @return FacesContext
@@ -56,8 +78,8 @@ public abstract class ControllerSupport implements Serializable{
     protected FacesContext getContext(){
         return FacesUtils.getContext();
     }
-	
-    /**
+
+	/**
      * Retorna a referencia do FacesContext.
      * @return ExternalContext
      */
