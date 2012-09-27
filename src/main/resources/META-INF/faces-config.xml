@@ -63,6 +63,11 @@
 			<renderer-type>org.primefaces.component.SelectOneMenuRenderer</renderer-type>
 			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.select.SelectOneMenuRenderer</renderer-class>
 		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.GraphicImageRenderer</renderer-type>
+			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.dynamic.GraphicImageRenderer</renderer-class>
+		</renderer>
 	</render-kit>
 	
 </faces-config>

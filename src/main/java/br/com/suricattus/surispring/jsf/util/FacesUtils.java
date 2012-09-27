@@ -22,6 +22,7 @@ package br.com.suricattus.surispring.jsf.util;
 
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -42,10 +43,6 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class FacesUtils {
 
-	private static String DEFAULT_BUNDLE_BASENAME = "javax.faces.Messages";
-	private static String PRIMEFACES_BUNDLE_BASENAME = "org.primefaces.Messages";
-	private static String SURICATTUS_BUNDLE_BASENAME = "br.com.suricattus.surispring.Messages";
-	
 	/**
      * Retorna a referencia do FacesContext.
      * @return FacesContext
@@ -79,6 +76,14 @@ public abstract class FacesUtils {
     }
     
     /**
+     * Retorna a referencia para o Map de request.
+     * @return Map<String, Object>
+     */
+    public static Map<String, Object> getRequestMap(){
+        return getExternalContext().getRequestMap();
+    }
+    
+    /**
      * Retorna a instancia atual do contexto ServletContext.
      * @return ServletContext
      */
@@ -96,11 +101,27 @@ public abstract class FacesUtils {
     }
 
     /**
+     * Retorna a referencia do Map de parametros da Request
+     * @return Map<String, String>
+     */
+    public static Map<String, String> getRequestParameterMap(){
+        return getExternalContext().getRequestParameterMap();
+    }
+    
+    /**
      * Retorna a referencia para o HttpSession atual.
      * @return HttpSession
      */
     public static HttpSession getSession(){
         return getRequest().getSession();
+    }
+    
+    /**
+     * Retorna a referencia do Map da HttpSession.
+     * @return Map<String, Object>
+     */
+    public static Map<String, Object> getSessionMap(){
+        return getExternalContext().getSessionMap();
     }
     
     /**
@@ -231,13 +252,13 @@ public abstract class FacesUtils {
 		
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
-		bundle = ResourceBundle.getBundle(SURICATTUS_BUNDLE_BASENAME, locale);
+		bundle = ResourceBundle.getBundle(Constants.SURICATTUS_BUNDLE_BASENAME, locale);
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
-		bundle = ResourceBundle.getBundle(PRIMEFACES_BUNDLE_BASENAME, locale);
+		bundle = ResourceBundle.getBundle(Constants.PRIMEFACES_BUNDLE_BASENAME, locale);
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
-		bundle = ResourceBundle.getBundle(DEFAULT_BUNDLE_BASENAME, locale);
+		bundle = ResourceBundle.getBundle(Constants.DEFAULT_BUNDLE_BASENAME, locale);
 		if(bundle.containsKey(key)) return formatMsg(bundle.getString(key), params);
 		
         return formatMsg(key, params);

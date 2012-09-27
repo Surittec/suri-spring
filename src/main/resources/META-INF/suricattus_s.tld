@@ -4,7 +4,7 @@
 <taglib>
 	<tlib-version>1.2</tlib-version>
 	<jsp-version>2.5</jsp-version>
-	<short-name>mir</short-name>
+	<short-name>s</short-name>
 	<uri>http://www.suricattus.com.br/jsf/ui</uri>
 	<display-name>Suricattus</display-name>
 	<description>Suricattus JSF Components</description>
