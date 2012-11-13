@@ -54,5 +54,9 @@
 		<tag-name>number</tag-name>
 		<source>resources/suricattus/facelets/number.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>match</tag-name>
+		<source>resources/suricattus/facelets/match.xhtml</source>
+	</tag>
 	
 </facelet-taglib>

@@ -190,4 +190,23 @@
             <description>Locale for specific number mask pattern. Used for number components. When not informed, context locale will be used.</description>
         </attribute>
 	</tag>
+	<tag>
+		<name>match</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>Validator de igualdade com outro campo.</description>
+		<attribute>
+	   		<name>with</name>
+	   	   	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+	   		<name>message</name>
+	   	   	<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+	   		<name>validateEmailBefore</name>
+	   	   	<type>boolean</type>
+	   		<description>Default: false.</description>
+		</attribute>
+	</tag>
 </taglib>

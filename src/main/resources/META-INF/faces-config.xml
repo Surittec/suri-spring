@@ -49,6 +49,11 @@
 		<component-type>org.primefaces.component.InputMask</component-type>
 		<component-class>br.com.suricattus.surispring.jsf.primefaces.component.input.InputMask</component-class>
 	</component>
+	
+	<component>
+		<component-type>org.primefaces.component.Captcha</component-type>
+		<component-class>br.com.suricattus.surispring.jsf.primefaces.component.captcha.Captcha</component-class>
+	</component>
 
 	<!-- RENDERES -->
 
