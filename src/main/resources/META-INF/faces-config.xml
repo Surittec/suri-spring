@@ -73,6 +73,11 @@
 			<renderer-type>org.primefaces.component.GraphicImageRenderer</renderer-type>
 			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.dynamic.GraphicImageRenderer</renderer-class>
 		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.CaptchaRenderer</renderer-type>
+			<renderer-class>br.com.suricattus.surispring.jsf.primefaces.component.captcha.CaptchaRenderer</renderer-class>
+		</renderer>
 	</render-kit>
 	
 </faces-config>
