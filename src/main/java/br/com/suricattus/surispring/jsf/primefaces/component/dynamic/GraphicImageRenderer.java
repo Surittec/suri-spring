@@ -16,7 +16,7 @@ import org.primefaces.util.Constants;
 import br.com.suricattus.surispring.spring.util.ApplicationContextUtil;
 
 /**
- * Renderer para conrrigir o dynamic content com os escopos distintos
+ * Renderer para corrigir o dynamic content com os escopos distintos
  * 
  * @author Lucas Lins
  *
@@ -28,7 +28,7 @@ public class GraphicImageRenderer extends org.primefaces.component.graphicimage.
 		String src = null;
 		Object value = image.getValue();
 
-		if(value == null) {
+		if(value == null || value.toString().trim().length() == 0) {
             src = "";
         }
         else {
