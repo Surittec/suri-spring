@@ -200,7 +200,8 @@ public class Captcha extends UIInput {
 	}
 
 	public void handleAttribute(String name, Object value) {
-		List<String> setAttributes = (List<String>) this.getAttributes().get("javax.faces.component.UIComponentBase.attributesThatAreSet");
+		@SuppressWarnings("unchecked")
+        List<String> setAttributes = (List<String>) this.getAttributes().get("javax.faces.component.UIComponentBase.attributesThatAreSet");
 		if(setAttributes == null) {
 			String cname = this.getClass().getName();
 			if(cname != null && cname.startsWith(OPTIMIZED_PACKAGE)) {

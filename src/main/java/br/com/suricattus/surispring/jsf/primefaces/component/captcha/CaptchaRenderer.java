@@ -2,7 +2,6 @@ package br.com.suricattus.surispring.jsf.primefaces.component.captcha;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -12,8 +11,6 @@ import javax.faces.context.ResponseWriter;
 import org.primefaces.renderkit.CoreRenderer;
 
 public class CaptchaRenderer extends CoreRenderer{
-
-	 private static final Logger logger = Logger.getLogger(CaptchaRenderer.class.getName());
 
 	 private final static String CHALLENGE_FIELD = "recaptcha_challenge_field";
 	 private final static String RESPONSE_FIELD = "recaptcha_response_field";
