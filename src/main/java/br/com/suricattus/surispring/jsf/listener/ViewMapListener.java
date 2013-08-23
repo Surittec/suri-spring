@@ -29,7 +29,6 @@ import javax.faces.event.PostConstructViewMapEvent;
 import javax.faces.event.PreDestroyViewMapEvent;
 import javax.faces.event.SystemEvent;
 
-import br.com.suricattus.surispring.spring.scope.ViewAccessScope;
 import br.com.suricattus.surispring.spring.scope.ViewScope;
 
 /**
@@ -66,20 +65,11 @@ public class ViewMapListener implements javax.faces.event.ViewMapListener {
 	private void initViewMaps(UIViewRoot viewRoot){
 		viewRoot.getViewMap().put(ViewScope.BEANS, new HashMap<String, Object>());
 		viewRoot.getViewMap().put(ViewScope.CALLBACKS, new HashMap<String, Runnable>());
-		
-		viewRoot.getViewMap().put(ViewAccessScope.BEANS, new HashMap<String, Object>());
-		viewRoot.getViewMap().put(ViewAccessScope.CALLBACKS, new HashMap<String, Runnable>());
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void destroyBeans(UIViewRoot viewRoot){
 		Map<String, Runnable> callbacks = (Map<String, Runnable>) viewRoot.getViewMap().get(ViewScope.CALLBACKS);
-		if (callbacks != null) {
-			for (Runnable c : callbacks.values()) c.run();
-			callbacks.clear();
-		}
-		
-		callbacks = (Map<String, Runnable>) viewRoot.getViewMap().get(ViewAccessScope.CALLBACKS);
 		if (callbacks != null) {
 			for (Runnable c : callbacks.values()) c.run();
 			callbacks.clear();

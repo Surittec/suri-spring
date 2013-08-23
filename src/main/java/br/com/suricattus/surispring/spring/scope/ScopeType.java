@@ -33,8 +33,6 @@ public interface ScopeType {
 	
 	String SESSION = WebApplicationContext.SCOPE_SESSION;
 	
-	String VIEW_ACCESS = "viewAccess";
-	
 	String VIEW = "view";
 	
 	String REQUEST = WebApplicationContext.SCOPE_REQUEST;

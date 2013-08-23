@@ -34,9 +34,6 @@
 				<entry key="view">
 					<bean class="br.com.suricattus.surispring.spring.scope.ViewScope" />
 				</entry>
-				<entry key="viewAccess">
-					<bean class="br.com.suricattus.surispring.spring.scope.ViewAccessScope" />
-				</entry>
 			</map>
 		</property>
 	</bean>

@@ -39,7 +39,6 @@
 	</factory>
 	
 	<lifecycle>
-		<phase-listener>br.com.suricattus.surispring.jsf.listener.ViewAccessScopeListener</phase-listener>
 		<phase-listener>com.ocpsoft.pretty.faces.event.MultiPageMessagesSupport</phase-listener>
 	</lifecycle>
 	
