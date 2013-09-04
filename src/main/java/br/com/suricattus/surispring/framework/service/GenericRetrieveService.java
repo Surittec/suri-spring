@@ -36,7 +36,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
 
 /**
@@ -77,7 +76,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return entidade
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> T retrieve(Class<T> classe, Serializable id){
+    public <T> T retrieve(Class<T> classe, Serializable id){
 		return (T)getSession().get(classe, id);
 	}
 	
@@ -88,7 +87,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> List<T> retrieveAll(Class<T> classe){
+    public <T> List<T> retrieveAll(Class<T> classe){
 		return getSession().createCriteria(classe).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
@@ -101,7 +100,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades ordadenadas
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> List<T> retrieveAll(Class<T> classe, SearchSort sort, String ... propertiesName){
+    public <T> List<T> retrieveAll(Class<T> classe, SearchSort sort, String ... propertiesName){
 		Criteria criteria = getSession().createCriteria(classe);
 		if(SearchSort.ASCENDING.equals(sort)){
 			for(String property : propertiesName) criteria.addOrder(Order.asc(property));
@@ -121,7 +120,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> List<T> retrieveByProperty(Class<T> classe, String propertyName, Object value){
+    public <T> List<T> retrieveByProperty(Class<T> classe, String propertyName, Object value){
 		return getSession().createCriteria(classe).add(Restrictions.eq(propertyName, value)).list();
 	}
 	
@@ -136,7 +135,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @param value
 	 * @return
 	 */
-	public <T extends BaseEntity> List<T> retrieveByProperty(Class<T> classe, String propertyName, String value){
+	public <T> List<T> retrieveByProperty(Class<T> classe, String propertyName, String value){
 		return retrieveByProperty(classe, propertyName, value, null);
 	}
 	
@@ -151,7 +150,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades.
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> List<T> retrieveByProperty(Class<T> classe, String propertyName, String value, MatchMode matchMode){
+    public <T> List<T> retrieveByProperty(Class<T> classe, String propertyName, String value, MatchMode matchMode){
 		if (matchMode != null){
 			return getSession().createCriteria(classe).add(Restrictions.ilike(propertyName, value, matchMode)).list();
 		}else{
@@ -168,7 +167,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseEntity> T retrieveUniqueByProperty(Class<T> classe, String propertyName, Object value){
+	public <T> T retrieveUniqueByProperty(Class<T> classe, String propertyName, Object value){
 		return (T) getSession().createCriteria(classe).add(Restrictions.eq(propertyName, value)).uniqueResult();
 	}
 	
@@ -183,7 +182,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @param value
 	 * @return
 	 */
-	public <T extends BaseEntity> T retrieveUniqueByProperty(Class<T> classe, String propertyName, String value){
+	public <T> T retrieveUniqueByProperty(Class<T> classe, String propertyName, String value){
 		return retrieveUniqueByProperty(classe, propertyName, value, null);
 	}
 	
@@ -198,7 +197,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades.
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseEntity> T retrieveUniqueByProperty(Class<T> classe, String propertyName, String value, MatchMode matchMode){
+	public <T> T retrieveUniqueByProperty(Class<T> classe, String propertyName, String value, MatchMode matchMode){
 		if (matchMode != null){
 			return (T) getSession().createCriteria(classe).add(Restrictions.ilike(propertyName, value, matchMode)).uniqueResult();
 		}else{
@@ -213,7 +212,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @param filtro
 	 * @return lista de entidades
 	 */
-	public <T extends BaseEntity> List<T> retrieveByExample(Class<T> classe, BaseEntity filtro){
+	public <T> List<T> retrieveByExample(Class<T> classe, T filtro){
 		return retrieveByExample(classe, filtro, null, false);
 	}
 	
@@ -227,7 +226,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades
 	 */
 	@SuppressWarnings("unchecked")
-    public <T extends BaseEntity> List<T> retrieveByExample(Class<T> classe, BaseEntity filtro, MatchMode matchMode, boolean ignoreCase){
+    public <T> List<T> retrieveByExample(Class<T> classe, T filtro, MatchMode matchMode, boolean ignoreCase){
 		Example example = Example.create(filtro);
 		if(matchMode != null) example = example.enableLike(matchMode);
 		if(ignoreCase) example = example.ignoreCase();
@@ -241,7 +240,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @param filtro
 	 * @return lista de entidades
 	 */
-	public <T extends BaseEntity> T retrieveUniqueByExample(Class<T> classe, BaseEntity filtro){
+	public <T> T retrieveUniqueByExample(Class<T> classe, T filtro){
 		return retrieveUniqueByExample(classe, filtro, null, false);
 	}
 	
@@ -255,7 +254,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return lista de entidades
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseEntity> T retrieveUniqueByExample(Class<T> classe, BaseEntity filtro, MatchMode matchMode, boolean ignoreCase){
+	public <T> T retrieveUniqueByExample(Class<T> classe, T filtro, MatchMode matchMode, boolean ignoreCase){
 		Example example = Example.create(filtro);
 		if(matchMode != null) example = example.enableLike(matchMode);
 		if(ignoreCase) example = example.ignoreCase();
@@ -271,7 +270,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseEntity> List<T>  retrieveByNamedQuery(Class<T> classe, String namedQuery, Object ... params){
+	public <T> List<T>  retrieveByNamedQuery(Class<T> classe, String namedQuery, Object ... params){
 		Query query = getSession().getNamedQuery(namedQuery);
 		if(params != null) for(int i = 1; i <= params.length; i++) query.setParameter(i, params[i - 1]);
 		return query.list();
@@ -286,7 +285,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public <T extends BaseEntity> List<T>  retrieveByNamedQuery(Class<T> classe, String namedQuery, Map<String, Object> params){
+	public <T> List<T>  retrieveByNamedQuery(Class<T> classe, String namedQuery, Map<String, Object> params){
 		Query query = getSession().getNamedQuery(namedQuery);
 		if(params != null){
 			for(String paramName : params.keySet()){
@@ -312,7 +311,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseEntity> T  retrieveUniqueByNamedQuery(Class<T> classe, String namedQuery, Object ... params){
+	public <T> T  retrieveUniqueByNamedQuery(Class<T> classe, String namedQuery, Object ... params){
 		Query query = getSession().getNamedQuery(namedQuery);
 		if(params != null){
 			for(int i = 0; i < params.length; i++){ 
@@ -331,7 +330,7 @@ public class GenericRetrieveService implements Serializable{
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public <T extends BaseEntity> T  retrieveUniqueByNamedQuery(Class<T> classe, String namedQuery, Map<String, Object> params){
+	public <T> T  retrieveUniqueByNamedQuery(Class<T> classe, String namedQuery, Map<String, Object> params){
 		Query query = getSession().getNamedQuery(namedQuery);
 		if(params != null){
 			for(String paramName : params.keySet()){

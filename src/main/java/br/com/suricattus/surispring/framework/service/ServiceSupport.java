@@ -25,8 +25,6 @@ import java.util.Collection;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.suricattus.surispring.framework.domain.BaseEntity;
-
 /**
  * Classe suporte aos Services transacionais do projeto. 
  * 
@@ -48,7 +46,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj objeto a ser persistido
 	 */
-	public <T extends BaseEntity, PK extends Serializable> PK save(T novoObj){
+	public <T, PK extends Serializable> PK save(T novoObj){
 		return (PK) getSession().save(novoObj);
 	}
 	
@@ -58,7 +56,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj objeto a ser persistido
 	 */
-	public <T extends BaseEntity> void saveOrUpdate(T ... objs){
+	public <T> void saveOrUpdate(T ... objs){
 		for(T t : objs){
 			getSession().saveOrUpdate(t);
 		}
@@ -70,7 +68,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj objeto a ser persistido
 	 */
-	public <T extends BaseEntity> void saveOrUpdate(Collection<T>  objs){
+	public <T> void saveOrUpdate(Collection<T>  objs){
 		for(T t : objs){
 			getSession().saveOrUpdate(t);
 		}
@@ -81,7 +79,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param ids Identificadores das entidades a serem removidas da base de dados
 	 */
-	public <T extends BaseEntity, PK extends Serializable> void delete(Class<T> classe, PK ... ids){
+	public <T, PK extends Serializable> void delete(Class<T> classe, PK ... ids){
 		if (ids != null && ids.length > 0){
 			for (PK id : ids) {
 				if (id != null){
@@ -100,7 +98,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param objs Objetos a serem removidos da base de dados
 	 */
-	public <T extends BaseEntity> void delete(T ... objs){
+	public <T> void delete(T ... objs){
 		for(T t : objs){
 			Object objMerged = getSession().merge(t);
 			getSession().delete(objMerged);
@@ -112,7 +110,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param objs Objetos a serem removidos da base de dados
 	 */
-	public <T extends BaseEntity> void delete(Collection<T> objs){
+	public <T> void delete(Collection<T> objs){
 		for(T t : objs){
 			Object objMerged = getSession().merge(t);
 			getSession().delete(objMerged);
@@ -124,7 +122,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj Objeto a ser alterado na base de dados
 	 */
-	public <T extends BaseEntity> void update(T ... objs){		
+	public <T> void update(T ... objs){		
 		saveOrUpdate(objs);
 	}
 	
@@ -135,7 +133,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * @param obj objeto a ser sincronizado
 	 * @return objeto sincronizado com a base
 	 */
-	public <T extends BaseEntity> T merge(T novoObj){
+	public <T> T merge(T novoObj){
 		T objMerged = (T)getSession().merge(novoObj);
 		return objMerged;
 	}
@@ -145,7 +143,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj objeto para refresh
 	 */
-	public <T extends BaseEntity> void refresh(T obj){
+	public <T> void refresh(T obj){
 		getSession().refresh(obj);
 	}
 	
@@ -154,7 +152,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * 
 	 * @param obj objeto para remocao
 	 */
-	public <T extends BaseEntity> void evict(T obj){
+	public <T> void evict(T obj){
 		getSession().evict(obj);
 	}
 	
@@ -164,7 +162,7 @@ public abstract class ServiceSupport extends GenericRetrieveService {
 	 * @param obj
 	 * @return boolean
 	 */
-	public <T extends BaseEntity> boolean contains(T obj){
+	public <T> boolean contains(T obj){
 		return getSession().contains(obj);
 	}
 	

@@ -36,7 +36,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.suricattus.surispring.framework.domain.BaseEntity;
 import br.com.suricattus.surispring.framework.util.SearchSort;
 
 /**
@@ -48,7 +47,7 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  * @param <PK>
  */
 @SuppressWarnings("unchecked")
-public abstract class DaoSupport <T extends BaseEntity, PK extends Serializable>{
+public abstract class DaoSupport <T, PK extends Serializable>{
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ATTRIBUTES
