@@ -45,13 +45,11 @@ import br.com.suricattus.surispring.framework.util.SearchSort;
  * @author Lucas Lins
  * 
  */
-public class GenericRetrieveService implements Serializable{
+public class GenericRetrieveService {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ATTRIBUTES
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	private static final long serialVersionUID = 1L;
 	
 	@PersistenceContext
 	private EntityManager entityManager;

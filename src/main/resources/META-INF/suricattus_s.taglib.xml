@@ -58,5 +58,13 @@
 		<tag-name>match</tag-name>
 		<source>resources/suricattus/facelets/match.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>date</tag-name>
+		<source>resources/suricattus/facelets/date.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>object</tag-name>
+		<source>resources/suricattus/facelets/object.xhtml</source>
+	</tag>
 	
 </facelet-taglib>

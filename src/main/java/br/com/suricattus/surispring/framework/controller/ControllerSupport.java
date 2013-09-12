@@ -20,11 +20,12 @@
  */
 package br.com.suricattus.surispring.framework.controller;
 
-import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -39,20 +40,22 @@ import javax.servlet.http.HttpSession;
 import br.com.suricattus.surispring.framework.controller.annotation.AppendBusinessMessages;
 import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
+import com.ocpsoft.pretty.PrettyContext;
+import com.ocpsoft.pretty.faces.config.mapping.PathParameter;
+import com.ocpsoft.pretty.faces.config.mapping.UrlMapping;
+
 /**
  * 
  * @author Lucas Lins
  *
  */
 @AppendBusinessMessages
-public abstract class ControllerSupport implements Serializable{
+public abstract class ControllerSupport{
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ATTRIBUTES
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final long serialVersionUID = 1L;
-
 	protected String idParam;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,6 +68,27 @@ public abstract class ControllerSupport implements Serializable{
 
 	public void setIdParam(String idParam) {
 		this.idParam = idParam;
+	}
+	
+	 /**
+     * Comparacao de strings com ignore case, util para dataTables com sort
+     * @param obj1
+     * @param obj2
+     * @return
+     */
+    public int sortIgnoreCase(Object obj1, Object obj2){
+		return ((String)obj1).compareToIgnoreCase((String)obj2);
+	}
+    
+    /**
+	 * Metodo para ser utilizado em acoes de cancelamento que exigem a limpeza de um form.
+	 * Realiza, assim, a limpeza completa na arvore de componentes do JSF, do form que o botao se encontra.
+	 * @param event
+	 */
+    public void resetForm(ActionEvent event){
+		UIComponent component = event.getComponent();
+		while(!(component instanceof HtmlForm) && component.getParent() != null) component = component.getParent();
+		if(component instanceof HtmlForm) cleanComponent(component);
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,31 +255,50 @@ public abstract class ControllerSupport implements Serializable{
 	}
 	
 	/**
-	 * Metodo para ser utilizado em acoes de cancelamento que exigem a limpeza de um form.
-	 * Realiza, assim, a limpeza completa na arvore de componentes do JSF, do form que o botao se encontra.
-	 * @param event
-	 */
-    protected void resetForm(ActionEvent event){
-		UIComponent component = event.getComponent();
-		while(!(component instanceof HtmlForm) && component.getParent() != null) component = component.getParent();
-		if(component instanceof HtmlForm) cleanComponent(component);
-	}
-	
-	/**
 	 * Metodo para limpar o componente, na arvore jsf, cujo id informado. 
 	 * @param componentClientId
 	 */
     protected void resetComponent(String componentClientId){
 		cleanComponent(getContext().getViewRoot().findComponent(componentClientId));
 	}
-	
+    
+    /**
+     * Redirecionamento com o pretty-faces
+     * @param mappingId
+     * @param params
+     */
+    protected String redirect(String mappingId, Object ... params){
+    	PrettyContext context = PrettyContext.getCurrentInstance(getRequest());
+		UrlMapping mapping = context.getConfig().getMappingById("pretty:"+mappingId);
+		if(mapping != null){
+			
+			if(mapping.getPatternParser().getPathParameters().size() > params.length) return null;
+			
+			StringBuilder url = new StringBuilder(mapping.getViewId());
+			url.append("?faces-redirect=true");
+			
+			Iterator<Object> paramsIt = Arrays.asList(params).iterator();
+			for(PathParameter pp : mapping.getPatternParser().getPathParameters()) url.append("&").append(pp.getName()).append("=").append(paramsIt.next());
+			while(paramsIt.hasNext()) url.append("&").append(paramsIt.next());
+			
+			return url.toString();
+			
+		}else{
+			return null;
+		}
+    }
+    
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// PRIVATE METHODS
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private void cleanComponent(UIComponent component) {
 		if(component == null) return;
-		if (component instanceof UIInput) ((UIInput)component).resetValue();
+		if (component instanceof EditableValueHolder) ((EditableValueHolder)component).resetValue();
+		if(UIComponent.isCompositeComponent(component)){
+			Iterator<UIComponent> it = component.getFacetsAndChildren();
+			while(it.hasNext()) cleanComponent(it.next());
+		}
 		if (component.getChildCount() > 0) {
 			for (UIComponent child : component.getChildren()) {
 				cleanComponent(child);

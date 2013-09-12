@@ -32,8 +32,10 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.OptimisticLockException;
+import javax.transaction.RollbackException;
 
 import org.apache.taglibs.standard.lang.jstl.ELException;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import br.com.suricattus.surispring.jsf.util.FacesUtils;
 
@@ -71,7 +73,7 @@ public class PrettyExceptionHandler extends ExceptionHandlerWrapper {
 		
 		for (final Iterator<ExceptionQueuedEvent> it = getUnhandledExceptionQueuedEvents().iterator(); it.hasNext();) {
 			Throwable t = it.next().getContext().getException();
-			while ((t instanceof FacesException || t instanceof ELException) && t.getCause() != null) {
+			while ((t instanceof FacesException || t instanceof ELException || t instanceof UnexpectedRollbackException || t instanceof RollbackException) && t.getCause() != null) {
 				t = t.getCause();
 			}
 			
