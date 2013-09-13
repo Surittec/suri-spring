@@ -198,6 +198,16 @@ public abstract class SecurityUtil {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 	
+	/**
+	 * Get logged user details.
+	 * 
+	 * @return
+	 */
+	public static Object getDetails(){
+		if(!isAuthenticated()) return null;
+		return SecurityContextHolder.getContext().getAuthentication().getDetails();
+	}
+	
 	//------------------------------------------
 	// PRIVATE METHODS
 	//------------------------------------------
