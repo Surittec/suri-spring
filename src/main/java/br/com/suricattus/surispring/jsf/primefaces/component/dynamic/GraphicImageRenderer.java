@@ -1,5 +1,6 @@
 package br.com.suricattus.surispring.jsf.primefaces.component.dynamic;
 
+import java.util.Map;
 import java.util.UUID;
 
 import javax.el.ELContext;
@@ -74,4 +75,15 @@ public class GraphicImageRenderer extends org.primefaces.component.graphicimage.
         return String.format(br.com.suricattus.surispring.jsf.util.Constants.DYNAMIC_CONTENT_EXPRESSION, rid);
 	}
 	
+	protected String createUniqueContentId(FacesContext context) {
+        Map<String,Object> session = context.getExternalContext().getSessionMap();
+        
+        String key = generateKey();
+        
+        while(session.containsKey(key)) {
+            key = generateKey();
+        }
+        
+        return key;
+    }
 }
