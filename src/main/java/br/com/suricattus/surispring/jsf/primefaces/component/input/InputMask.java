@@ -31,6 +31,7 @@ import javax.faces.application.ResourceDependency;
 @ResourceDependencies({
 	@ResourceDependency(library="primefaces", name="primefaces.css"),
 	@ResourceDependency(library="primefaces", name="jquery/jquery.js"),
+	@ResourceDependency(library="primefaces", name="jquery/jquery-plugins.js"),
 	@ResourceDependency(library="suricattus", name="jquery/jquery.meiomask.js"),
 	@ResourceDependency(library="primefaces", name="primefaces.js")
 })

@@ -86,4 +86,10 @@ public class GraphicImageRenderer extends org.primefaces.component.graphicimage.
         
         return key;
     }
+	
+	protected String generateKey() {
+        StringBuilder builder = new StringBuilder();
+        
+        return builder.append(Constants.DYNAMIC_CONTENT_PARAM).append("_").append(UUID.randomUUID().toString()).toString();
+    }
 }

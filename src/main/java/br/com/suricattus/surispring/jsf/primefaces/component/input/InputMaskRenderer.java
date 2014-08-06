@@ -23,9 +23,9 @@ package br.com.suricattus.surispring.jsf.primefaces.component.input;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 
 import org.primefaces.component.inputmask.InputMask;
+import org.primefaces.util.WidgetBuilder;
 
 /**
  * 
@@ -37,22 +37,16 @@ public class InputMaskRenderer extends org.primefaces.component.inputmask.InputM
 
 	@Override
 	protected void encodeScript(FacesContext context, InputMask inputMask) throws IOException {
-		ResponseWriter writer = context.getResponseWriter();
 		String clientId = inputMask.getClientId(context);
         String mask = inputMask.getMask();
-		
-        startScript(writer, clientId);
-
-        writer.write("PrimeFaces.cw('InputMask','" + inputMask.resolveWidgetVar() + "',{");
-        writer.write("id:'" + clientId + "'");
+        WidgetBuilder wb = getWidgetBuilder(context);
+        wb.init("InputMask", inputMask.resolveWidgetVar(), clientId);
         
-        if(mask != null) writer.write(",mask: {" + inputMask.getMask() + "}");
-		
-        encodeClientBehaviors(context, inputMask);
+        if(mask != null) {
+            wb.nativeAttr("mask", "{" + mask + "}");
+        }
 
-        writer.write("});");
-	
-		endScript(writer);
+        wb.finish();
 	}
 	
 }
