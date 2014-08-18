@@ -22,6 +22,7 @@ package br.com.suricattus.surispring.framework.controller;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
@@ -287,6 +288,19 @@ public abstract class ControllerSupport{
 			return null;
 		}
     }
+    
+    protected boolean filterIgnoreCase(Object value, Object filter, Locale locale) {
+	    String filterText = (filter == null) ? null : filter.toString().trim();
+	    if (filterText == null || filterText.equals("")) return true;
+	    
+	    if (value == null) return false;
+
+	    String objectText = value.toString().toUpperCase();
+	    filterText = filterText.toUpperCase();
+
+	    if (objectText.contains(filterText)) return true;
+	    else return false;
+	}
     
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// PRIVATE METHODS
