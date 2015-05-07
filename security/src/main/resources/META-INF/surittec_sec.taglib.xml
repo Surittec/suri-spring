@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "facelet-taglib_1_0.dtd">
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+									http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+				version="2.0">
+	
+	<namespace>http://www.surittec.com.br/jsf/sec</namespace>
+	
+	<tag>
+		<tag-name>hasAllRoles</tag-name>
+		<source>resources/surittec/facelets/hasAllRoles.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>hasAnyRole</tag-name>
+		<source>resources/surittec/facelets/hasAnyRole.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>hasNoRole</tag-name>
+		<source>resources/surittec/facelets/hasNoRole.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>isAnonymous</tag-name>
+		<source>resources/surittec/facelets/isAnonymous.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>isAuthenticated</tag-name>
+		<source>resources/surittec/facelets/isAuthenticated.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>isAuthorized</tag-name>
+		<source>resources/surittec/facelets/isAuthorized.xhtml</source>
+	</tag>
+	
+</facelet-taglib>

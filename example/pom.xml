@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>br.com.surittec</groupId>
+		<artifactId>suri-spring</artifactId>
+		<version>3.0.0</version>
+	</parent>
+
+	<artifactId>suri-spring-example</artifactId>
+	<packaging>war</packaging>
+
+	<name>Suri Spring Example</name>
+
+	<dependencies>
+		
+		<!-- javax -->
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+		
+		<!-- validation -->
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		
+		<!-- jsf -->
+		
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+		</dependency>
+		
+		<!-- apache commons -->
+		
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		
+		<dependency>
+	        <groupId>commons-fileupload</groupId>
+	   		<artifactId>commons-fileupload</artifactId>
+        </dependency>
+		
+		<!-- Surittec -->
+		
+		<dependency>
+			<groupId>br.com.surittec</groupId>
+			<artifactId>suri-spring-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.com.surittec</groupId>
+			<artifactId>suri-spring-faces</artifactId>
+		</dependency>
+		
+	</dependencies>
+	
+</project>
